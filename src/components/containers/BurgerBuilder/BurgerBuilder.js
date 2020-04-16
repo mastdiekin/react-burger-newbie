@@ -53,7 +53,7 @@ class BurgerBuilder extends Component {
     updatedIngredients[type] = updatedCount;
     const priceDedution = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
-    const newPrice = oldPrice + priceDedution;
+    const newPrice = oldPrice - priceDedution;
     this.setState({
       totalPrice: newPrice,
       ingredients: updatedIngredients,
@@ -74,6 +74,7 @@ class BurgerBuilder extends Component {
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
+          price={this.state.totalPrice}
         />
       </Aux>
     );
