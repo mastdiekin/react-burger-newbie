@@ -97,12 +97,14 @@ class BurgerBuilder extends Component {
           <OrderSummary
             ingredients={this.state.ingredients}
             purchasable={this.state.purchasable}
+            type="modal"
           />
         </Modal>
         <Basket purchasable={this.state.purchasable}>
           <OrderSummary
             ingredients={this.state.ingredients}
             purchasable={this.state.purchasable}
+            type="cart"
           />
         </Basket>
         <Burger ingredients={this.state.ingredients} />

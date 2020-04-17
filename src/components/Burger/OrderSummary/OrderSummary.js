@@ -19,10 +19,10 @@ const orderSummary = (props) => {
   });
   const r = (
     <Aux>
-      <h3>Your order</h3>
+      <h3>{props.type === "modal" ? "Your order" : "Cart"}</h3>
       <p>A delicious burger with...</p>
       <ul>{ingredientSummary}</ul>
-      <p>Continue to checkout?</p>
+      {props.type === "modal" ? <p>Continue to checkout?</p> : null}
     </Aux>
   );
   if (props.purchasable) {
