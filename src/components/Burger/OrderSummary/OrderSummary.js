@@ -17,14 +17,19 @@ const orderSummary = (props) => {
       </li>
     );
   });
-  return (
+  const r = (
     <Aux>
       <h3>Your order</h3>
-      <p>A delicious burger whith...</p>
+      <p>A delicious burger with...</p>
       <ul>{ingredientSummary}</ul>
       <p>Continue to checkout?</p>
     </Aux>
   );
+  if (props.purchasable) {
+    return r;
+  } else {
+    return null;
+  }
 };
 
 export default orderSummary;
