@@ -3,16 +3,17 @@ import classes from "./Burger.sass";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
 const burger = (props) => {
+  console.log(props);
   let transformedIngredients = Object.keys(props.ingredients)
-    .map((igName) => {
-      return [...Array(props.ingredients[igName])].map((_, i) => {
-        return <BurgerIngredient key={igName + i} type={igName} />;
+    .map((igKey) => {
+      return [...Array(props.ingredients[igKey])].map((_, i) => {
+        return <BurgerIngredient key={igKey + i} type={igKey} />;
       });
     })
     .reduce((arr, el) => {
       return arr.concat(el);
     }, []);
-  if (transformedIngredients.length <= 0) {
+  if (transformedIngredients.length === 0) {
     transformedIngredients = (
       <div className={classes.notfound}>Ингредиенты не найдены</div>
     );
