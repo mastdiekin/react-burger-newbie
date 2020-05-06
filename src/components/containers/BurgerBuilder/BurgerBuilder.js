@@ -23,7 +23,9 @@ class BurgerBuilder extends Component {
     // error: false,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.oninitIngredients();
+  }
 
   purchasingHandler = () => {
     this.setState({
@@ -63,7 +65,7 @@ class BurgerBuilder extends Component {
     // }
 
     let orderSummary = null;
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ошибка, ингридиенты не могут быть загружены</p>
     ) : (
       <Spinner />
@@ -120,6 +122,7 @@ const mapStateToProps = (state) => {
   return {
     ings: state.ingredients,
     price: state.totalPrice,
+    error: state.error,
   };
 };
 
@@ -128,6 +131,7 @@ const mapDispatchToProps = (dispatch) => {
     onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
     onIngredientRemoved: (ingName) =>
       dispatch(actions.removeIngredient(ingName)),
+    oninitIngredients: () => dispatch(actions.initIngredients()),
   };
 };
 
