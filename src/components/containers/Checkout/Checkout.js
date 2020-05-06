@@ -14,6 +14,7 @@ class Checkout extends Component {
   };
 
   render() {
+    /* eslint-disable no-unused-vars */
     let summary = <Redirect to="/" />;
     if (this.props.ings) {
       summary = (
@@ -31,12 +32,13 @@ class Checkout extends Component {
       );
     }
     return summary;
+    /* eslint-enable no-unused-vars */
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients,
+    ings: state.burgerBuilder.ingredients,
   };
 };
 
