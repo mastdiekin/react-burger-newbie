@@ -7,10 +7,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (authData) => {
+export const authSuccess = (idToken, userId) => {
   return {
     type: actions.AUTH_SUCCESS,
-    authData,
+    idToken,
+    userId,
   };
 };
 
@@ -27,7 +28,7 @@ export const auth = (email, password, isSignup) => {
     const authData = {
       email,
       password,
-      returnSecurityToken: true,
+      returnSecureToken: true,
     };
     let key = "AIzaSyC_cXfPzHpXlztsKVXrka07iQb9nRgucF4";
     let url =
@@ -41,11 +42,11 @@ export const auth = (email, password, isSignup) => {
       .post(url, authData)
       .then((response) => {
         console.log(response);
-        dispatch(authSuccess(response.data));
+        dispatch(authSuccess(response.data.idToken, response.data.localId));
       })
       .catch((err) => {
         console.log(err);
-        dispatch(authFail(err));
+        dispatch(authFail(err.response.data.error));
       });
   };
 };
