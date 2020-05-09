@@ -43,6 +43,12 @@ class Auth extends Component {
     inSignup: true,
   };
 
+  componentDidMount = () => {
+    if (!this.props.buildingBurger && this.props.authRedirectPath !== "/") {
+      this.props.onSetAuthRedirectPath();
+    }
+  };
+
   switchAuthModeHandler = () => {
     this.setState((prevState) => {
       return {
@@ -133,19 +139,20 @@ class Auth extends Component {
     if (this.props.error) {
       errorMessage = <p>{this.props.error.message}</p>;
     }
-
-    let wholeForm = this.props.token ? (
-      <Redirect to="/" />
-    ) : (
-      <Auxx>
-        {form}
-        {errorMessage}
-        <Button clicked={this.switchAuthModeHandler} btnType="Danger">
-          Switch to {this.state.inSignup ? "SIGNIN" : "SIGNUP"}
-        </Button>
-      </Auxx>
-    );
-
+    let wholeForm;
+    if (this.props.token) {
+      wholeForm = <Redirect to={this.props.authRedirectPath} />;
+    } else {
+      wholeForm = (
+        <Auxx>
+          {form}
+          {errorMessage}
+          <Button clicked={this.switchAuthModeHandler} btnType="Danger">
+            Switch to {this.state.inSignup ? "SIGNIN" : "SIGNUP"}
+          </Button>
+        </Auxx>
+      );
+    }
     return <div className={classes.Auth}>{wholeForm}</div>;
   }
 }
@@ -155,6 +162,8 @@ const mapStateToProps = (state) => {
     loading: state.auth.loading,
     error: state.auth.error,
     token: state.auth.token !== null,
+    buildingBurger: state.burgerBuilder.building,
+    authRedirectPath: state.auth.authRedirectPath,
   };
 };
 
@@ -162,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignup) =>
       dispatch(actions.auth(email, password, isSignup)),
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
   };
 };
 
