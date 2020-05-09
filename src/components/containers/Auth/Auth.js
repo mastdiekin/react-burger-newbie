@@ -5,6 +5,8 @@ import classes from "./Auth.sass";
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 import Spinner from "../../UI/Spinner/Spinner";
+import { Redirect } from "react-router-dom";
+import Auxx from "../../../hoc/Auxx/Auxx";
 
 class Auth extends Component {
   state = {
@@ -132,15 +134,19 @@ class Auth extends Component {
       errorMessage = <p>{this.props.error.message}</p>;
     }
 
-    return (
-      <div className={classes.Auth}>
+    let wholeForm = this.props.token ? (
+      <Redirect to="/" />
+    ) : (
+      <Auxx>
         {form}
         {errorMessage}
         <Button clicked={this.switchAuthModeHandler} btnType="Danger">
           Switch to {this.state.inSignup ? "SIGNIN" : "SIGNUP"}
         </Button>
-      </div>
+      </Auxx>
     );
+
+    return <div className={classes.Auth}>{wholeForm}</div>;
   }
 }
 
@@ -148,6 +154,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    token: state.auth.token !== null,
   };
 };
 
