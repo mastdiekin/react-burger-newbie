@@ -6,8 +6,13 @@ import { Route, Switch } from "react-router-dom";
 import Orders from "./components/containers/Orders/Orders";
 import Auth from "./components/containers/Auth/Auth";
 import Logout from "./components/containers/Auth/Logout/Logout";
+import { connect } from "react-redux";
+import * as actions from "./store/actions/index";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onTryAuthoSignUp();
+  }
   render() {
     return (
       <Layout>
@@ -23,4 +28,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAuthoSignUp: () => dispatch(actions.authCheckState()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);
