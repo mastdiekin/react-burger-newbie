@@ -14,7 +14,7 @@ class Orders extends Component {
   render() {
     let orders = this.props.loading ? (
       <Spinner />
-    ) : (
+    ) : this.props.token ? (
       <div>
         {this.props.orders.map((order) => (
           <Order
@@ -24,6 +24,8 @@ class Orders extends Component {
           />
         ))}
       </div>
+    ) : (
+      "Not authentificated"
     );
     return orders;
   }
