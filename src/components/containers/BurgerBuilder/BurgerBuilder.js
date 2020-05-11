@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Aux from "../../../hoc/Auxx/Auxx";
 import Burger from "../../Burger/Burger";
 import BuildControls from "../../../components/Burger/BuildControls/BuildControls";
-import Basket from "../../UI/Basket/Basket";
 import Modal from "../../UI/Modal/Modal";
 import OrderSummary from "../../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../UI/Spinner/Spinner";
